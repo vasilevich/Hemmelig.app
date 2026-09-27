@@ -5,6 +5,8 @@ import { Link, useLoaderData, useLocation, useNavigate, useParams } from 'react-
 import { Button, buttonClassName } from '../components/Button';
 import Editor, { type EditorHandle } from '../components/Editor';
 import { inputClassName } from '../components/Input';
+import { RedirectView } from '../components/RedirectView';
+import { SiteRunner } from '../components/SiteRunner';
 import { useCopyFeedbackWithId } from '../hooks/useCopyFeedback';
 import { api, apiRaw } from '../lib/api';
 import {
@@ -14,6 +16,7 @@ import {
     generateEncryptionKey,
     hexToBytes,
 } from '../lib/crypto';
+import { parseSecurePayload, type DecodedSecretPayload } from '../lib/securePayload';
 
 interface SecretFile {
     id: string;
@@ -74,6 +77,8 @@ export function SecretPage() {
     const navigate = useNavigate();
     const initialData = useLoaderData() as SecretLoaderData;
     const [secretContent, setSecretContent] = useState<string | null>(null);
+    const [decodedPayload, setDecodedPayload] = useState<DecodedSecretPayload | null>(null);
+    const [resolvedEncryptionKey, setResolvedEncryptionKey] = useState<string | null>(null);
     const [title, setTitle] = useState<string | null>(null);
     const [files, setFiles] = useState<SecretFile[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -154,7 +159,12 @@ export function SecretPage() {
                               data.salt
                           )
                         : null;
-                    setSecretContent(decryptedSecret);
+                    const parsedPayload = parseSecurePayload(decryptedSecret);
+                    setDecodedPayload(parsedPayload);
+                    setSecretContent(
+                        parsedPayload.type === 'content' ? parsedPayload.content : null
+                    );
+                    setResolvedEncryptionKey(finalDecryptionKey);
                     setTitle(decryptedTitle);
                     setFiles(
                         await Promise.all(
@@ -408,6 +418,21 @@ export function SecretPage() {
                     </div>
                 </div>
             </main>
+        );
+    }
+
+    if (decodedPayload?.type === 'redirect') {
+        return <RedirectView payload={decodedPayload} title={title} />;
+    }
+
+    if (decodedPayload?.type === 'site' && resolvedEncryptionKey && salt) {
+        return (
+            <SiteRunner
+                payload={decodedPayload}
+                files={files}
+                encryptionKey={resolvedEncryptionKey}
+                salt={salt}
+            />
         );
     }
 

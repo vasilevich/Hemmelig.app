@@ -74,8 +74,11 @@ startJobs();
 // More middlewares can be found here:
 // https://hono.dev/docs/middleware/builtin/basic-auth
 export const securityHeadersMiddleware = createMiddleware(async (c, next) => {
-    // Skip CSP for Swagger UI docs page (it loads scripts/styles from cdn.jsdelivr.net)
-    if (c.req.path.endsWith('/api/docs')) {
+    // Swagger UI loads scripts/styles from cdn.jsdelivr.net.
+    // The mini-site sandbox intentionally has no page CSP: the iframe sandbox
+    // (without allow-same-origin) is the security boundary, while decrypted
+    // demos must be able to run arbitrary HTML/CSS/JS and nested PSP iframes.
+    if (c.req.path.endsWith('/api/docs') || c.req.path === '/sandbox.html') {
         return next();
     }
     return secureHeaders({

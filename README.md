@@ -22,6 +22,17 @@
   <a href="https://ko-fi.com/bjarneoeverli"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Ko--fi-FF5E5B?logo=ko-fi&logoColor=white" alt="Buy Me a Coffee" /></a>
 </p>
 
+## Fork extensions: encrypted redirects and mini-sites
+
+This fork adds two zero-knowledge payload types without changing Hemmelig's normal share-link format:
+
+- **Encrypted redirect links** with immediate, delayed, confirm-button, or content + new-tab link modes.
+- **Encrypted mini-sites** created from WYSIWYG HTML/CSS/JS, ZIP files, or project folders. The whole project is compressed client-side, encrypted client-side, stored as one normal Hemmelig attachment, and decrypted/extracted only in the recipient browser.
+
+Mini-site JavaScript runs in an iframe sandbox without `allow-same-origin`, so it has no Hemmelig cookie/session/parent-DOM authority while still supporting normal PSP/payment demo behavior including nested iframes and external APIs.
+
+See [Secure payload extensions](docs/secure-payloads.md) and [deployment profiles](deploy/README.md).
+
 ## How It Works
 
 1. Enter your secret on [hemmelig.app](https://hemmelig.app) or your self-hosted instance

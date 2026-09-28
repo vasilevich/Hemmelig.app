@@ -69,9 +69,11 @@ export function HomePage() {
     return (
         <main className="max-w-content mx-auto px-6 pt-12 grid gap-4">
             <div className="grid gap-2.5 mb-3">
-                <div className="font-mono text-ui text-accent">{t('home_page.kicker')}</div>
+                <div className="font-mono text-ui text-accent">
+                    {settings.instanceName || 'Hemmelig'}
+                </div>
                 <h1 className="m-0 text-[clamp(28px,4.4vw,40px)] leading-[1.1] tracking-[-0.03em] font-medium text-balance">
-                    {t('home_page.title')}
+                    Secure secret sharing
                 </h1>
                 <p className="m-0 max-w-150 text-fg-3 text-pretty">
                     {settings.instanceDescription || t('home_page.subtitle')}

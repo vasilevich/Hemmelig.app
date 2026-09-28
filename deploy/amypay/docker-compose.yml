@@ -1,6 +1,6 @@
 services:
     hemmelig:
-        image: ${HEMMELIG_IMAGE:-ghcr.io/vasilevich/hemmelig-secure:v7}
+        image: ${HEMMELIG_IMAGE:-ghcr.io/vasilevich/hemmelig-secure:classic-ui-secure}
         container_name: hemmelig
         restart: unless-stopped
         env_file:

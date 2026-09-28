@@ -1,9 +1,9 @@
-name: Publish secure v7 image
+name: Publish secure classic UI image
 
 on:
     push:
         branches:
-            - v7
+            - classic-ui-secure
     workflow_dispatch:
 
 permissions:
@@ -11,7 +11,7 @@ permissions:
     packages: write
 
 concurrency:
-    group: secure-v7-image
+    group: secure-classic-ui-image
     cancel-in-progress: true
 
 jobs:
@@ -40,7 +40,7 @@ jobs:
               with:
                   images: ghcr.io/vasilevich/hemmelig-secure
                   tags: |
-                      type=raw,value=v7
+                      type=raw,value=classic-ui-secure
                       type=sha,prefix=sha-
 
             - name: Build and push multi-arch image

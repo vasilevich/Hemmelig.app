@@ -107,14 +107,14 @@
     .dark {
         color-scheme: dark;
 
-        --color-canvas: #101317;
-        --color-surface: #14181d;
-        --color-raised: #1b1f25;
+        --color-canvas: #0a0a0a;
+        --color-surface: #111111;
+        --color-raised: #1a1a1a;
 
-        --color-line-faint: #1b1f25;
-        --color-line-soft: #22272e;
-        --color-line: #2a3038;
-        --color-line-strong: #3a414a;
+        --color-line-faint: #1a1a1a;
+        --color-line-soft: #222222;
+        --color-line: #2a2a2a;
+        --color-line-strong: #3a3a3a;
 
         --color-fg: #e6e8ea;
         --color-fg-2: #c4cad1;
@@ -125,7 +125,7 @@
         --color-accent: oklch(0.82 0.13 160);
         --color-on-accent: #0c100e;
         --color-danger: oklch(0.72 0.16 25);
-        --color-on-danger: #101317;
+        --color-on-danger: #0a0a0a;
         --color-warn: oklch(0.85 0.12 80);
     }
 

@@ -80,7 +80,7 @@ export function SecretForm() {
     const [siteDraft, setSiteDraft] = useState<SiteDraft>(initialSiteDraft);
     const [isLoading, setIsLoading] = useState(false);
     const [files, setFiles] = useState<File[]>([]);
-    const [showOptions, setShowOptions] = useState(false);
+    const [showOptions, setShowOptions] = useState(true);
     const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const attachments = useAttachments(setFiles);
